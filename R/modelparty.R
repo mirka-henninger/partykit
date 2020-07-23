@@ -589,6 +589,14 @@ mob_partynode <- function(Y, X, Z, weights = NULL, offset = NULL, cluster = NULL
   
     ## actually split the data
     kidids <- kidids_split(sp, data = z)
+
+    ## postcheck whether this is a terminal node
+    if(is.function(control$stopfun){
+        if(control$stopfun(z, kidids){
+            if(verbose) cat(sprintf("Post check indicates not to split, splitting is stopped"))
+            return(partynode(id = id, info = mod))
+        }
+    }
     
     ## set-up all daugther nodes
     depth <<- depth + 1L
@@ -724,7 +732,7 @@ mob_control <- function(alpha = 0.05, bonferroni = TRUE, minsize = NULL, maxdept
   terminal = "object", inner = terminal, model = TRUE,
   numsplit = "left", catsplit = "binary", vcov = "opg", ordinal = "chisq", nrep = 10000,
   minsplit = minsize, minbucket = minsize,
-  applyfun = NULL, cores = NULL)
+  applyfun = NULL, cores = NULL, stopfun = NULL)
 {
   ## transform defaults
   if(missing(minsize) & !missing(minsplit))  minsize <- minsplit
@@ -766,7 +774,7 @@ mob_control <- function(alpha = 0.05, bonferroni = TRUE, minsize = NULL, maxdept
     verbose = verbose, caseweights = caseweights, ytype = ytype, xtype = xtype,
     terminal = terminal, inner = inner, model = model,
     numsplit = numsplit, catsplit = catsplit, vcov = vcov,
-    ordinal = ordinal, nrep = nrep, applyfun = applyfun)
+    ordinal = ordinal, nrep = nrep, applyfun = applyfun, stopfun = stopfun)
   return(rval)
 }
 
