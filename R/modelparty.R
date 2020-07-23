@@ -591,8 +591,8 @@ mob_partynode <- function(Y, X, Z, weights = NULL, offset = NULL, cluster = NULL
     kidids <- kidids_split(sp, data = z)
 
     ## postcheck whether this is a terminal node
-    if(is.function(control$stopfun){
-        if(control$stopfun(z, kidids){
+    if(is.function(control$stopfun)){
+        if(control$stopfun(z, kidids)){
             if(verbose) cat(sprintf("Post check indicates not to split, splitting is stopped"))
             return(partynode(id = id, info = mod))
         }
